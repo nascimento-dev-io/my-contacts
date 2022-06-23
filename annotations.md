@@ -22,8 +22,6 @@ O conceito aqui é separação de responsabilidades, torna o sistema mais desaco
 - - - **delete** - remover um registro.
 - **Repositories** : Layer ( camada ) e abstração de acesso ao **Data Source**.
 
-
-
 > Um **repository** e um **controller** por entidade | Controller <-> Repository <-> Data Source
 
 - **Singleton** : Utilizar apenas uma instância do objeto dentro da aplicação.
@@ -41,4 +39,5 @@ Utilizamos o docker para o **postgres**, banco de dados relacional que irá arma
 Conceitos utilizados na criação do banco de dados, no nosso caso utilizamos o **postgres**.
 
 - [**SQL**](w3schools.com/sql/) linguagem padrão para armazenar, manipular e recuperar dados em bancos de dados.
-- [**uuid**](https://www.npmjs.com/package/uuid) --> Universal Unique ID ( uma hash utilizado para gerar os id do banco ).
+- [Postgres](https://www.postgresql.org/) banco de dados relacional utiliado na API.
+- [**uuid**](https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal) --> Universal Unique ID ( uma hash utilizado para gerar os id do banco ).
