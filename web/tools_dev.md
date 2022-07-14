@@ -12,7 +12,7 @@ Algumas ferramentas são muito importantes para manter uma padronização do có
 
 **Webpack** - utilizado para lidar com arquivos ( transpile, processamentos, bundler).
 
-**Babel** - tranpiler de códigos js/ts.
+**Babel** - transpiler de códigos js.
 
 **Exemplos de arquivos de configurações**
 
@@ -61,3 +61,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 ```
+
+### Estrutura do projeto
+
+- Definição de CSS globais.
