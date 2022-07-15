@@ -62,6 +62,10 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 ```
 
-### Estrutura do projeto
+### Pontos importantes no desenvolvimento
 
 - Definição de CSS globais.
+- Ser fiel ao layout / responsividade / manutenabilidade.
+- Definição estruturada no CSS ( spacing, colors )
+- Definir bem os componentes para reutilização.
+- Manter semântica no HTML gerado.

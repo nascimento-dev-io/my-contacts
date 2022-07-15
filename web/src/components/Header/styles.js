@@ -22,7 +22,7 @@ export const InputSearchContainer = styled.form`
 
     background-color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
 
     padding: 0 16px;
 

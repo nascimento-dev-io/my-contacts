@@ -1,6 +1,10 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components';
+
+import Routes from '../../Routes';
+
 import GlobalStyles from '../../assets/styles/global';
 import defaultTheme from '../../assets/styles/themes/default';
 import Header from '../Header';
@@ -8,12 +12,15 @@ import Header from '../Header';
 import { Container } from './styles';
 
 const App = () => (
-  <ThemeProvider theme={defaultTheme}>
-    <GlobalStyles />
-    <Container>
-      <Header />
-    </Container>
-  </ThemeProvider>
+  <BrowserRouter>
+    <ThemeProvider theme={defaultTheme}>
+      <GlobalStyles />
+      <Container>
+        <Header />
+        <Routes />
+      </Container>
+    </ThemeProvider>
+  </BrowserRouter>
 );
 
 export default App;
