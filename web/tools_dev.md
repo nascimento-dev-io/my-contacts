@@ -62,10 +62,11 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 ```
 
-### Pontos importantes no desenvolvimento
+### Pontos importantes no processo de desenvolvimento
 
 - Definição de CSS globais.
 - Ser fiel ao layout / responsividade / manutenabilidade.
-- Definição estruturada no CSS ( spacing, colors )
+- Definição estruturada no CSS ( spacing, colors ) - UI
 - Definir bem os componentes para reutilização.
 - Manter semântica no HTML gerado.
+- Rotas bem definidas/organizadas
