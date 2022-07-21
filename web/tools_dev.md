@@ -67,6 +67,7 @@ insert_final_newline = true
 - Definição de CSS globais.
 - Ser fiel ao layout / responsividade / manutenabilidade.
 - Definição estruturada no CSS ( spacing, colors ) - UI
-- Definir bem os componentes para reutilização.
+- Definir bem os componentes para reutilização ( flexivel de acordo com o projeto)
 - Manter semântica no HTML gerado.
-- Rotas bem definidas/organizadas
+- Rotas bem definidas/organizadas.
+- Portals ( entender sua importância ).

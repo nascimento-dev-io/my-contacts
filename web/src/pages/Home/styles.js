@@ -25,6 +25,7 @@ export const InputSearchContainer = styled.form`
 
 export const Container = styled.div`
   margin-top: 32px;
+  position: relative;
 `;
 
 export const HeaderListContacts = styled.header`

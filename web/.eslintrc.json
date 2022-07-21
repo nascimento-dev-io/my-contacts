@@ -3,11 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "airbnb-base"
-  ],
+  "extends": ["plugin:react/recommended", "airbnb-base"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -21,6 +17,7 @@
     "react/react-in-jsx-scope": "off",
     "import/prefer-default-export": "off",
     "object-curly-newline": "off",
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "operator-linebreak": ["error", "after"]
   }
 }
