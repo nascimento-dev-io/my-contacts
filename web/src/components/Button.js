@@ -30,19 +30,17 @@ export default styled.button`
     cursor: default;
   }
 
-  ${({ theme, danger }) => {
-    return danger
-      ? css`
-          background: ${theme.colors.danger.main};
+  ${({ theme, danger }) =>
+    danger &&
+    css`
+      background: ${theme.colors.danger.main};
 
-          &:hover {
-            background: ${theme.colors.danger.light};
-          }
+      &:hover {
+        background: ${theme.colors.danger.light};
+      }
 
-          &:active {
-            background: ${theme.colors.danger.dark};
-          }
-        `
-      : null;
-  }}
+      &:active {
+        background: ${theme.colors.danger.dark};
+      }
+    `}
 `;
