@@ -1,4 +1,4 @@
-### Ferramentas para desenvolvimentos
+### Ferramentas para desenvolvimento React/Node
 
 Algumas ferramentas são muito importantes para manter uma padronização do código, podendo também melhorar a produtividade nesse processo, vamos ver ferramentas que é geralmente utilizada em meus projetos.
 
@@ -62,12 +62,13 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 ```
 
-### Pontos importantes no processo de desenvolvimento
+### Pontos importantes no processo de desenvolvimento em React
 
 - Definição de CSS globais.
 - Ser fiel ao layout / responsividade / manutenabilidade.
 - Definição estruturada no CSS ( spacing, colors ) - UI
-- Definir bem os componentes para reutilização ( flexivel de acordo com o projeto)
+- Definir bem os componentes para reutilização ( flexível de acordo com o projeto)
 - Manter semântica no HTML gerado.
 - Rotas bem definidas/organizadas.
 - Portals ( entender sua importância ).
+- file: hooks - functions.
