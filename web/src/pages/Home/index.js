@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Modal from '../../components/Modal';
+import Loader from '../../components/Loader';
 
 import {
   Container,
@@ -14,20 +15,36 @@ import {
 import arrow from '../../assets/images/icons/arrow.svg';
 import editIcon from '../../assets/images/icons/edit.svg';
 import trashIcon from '../../assets/images/icons/trash.svg';
+import ContactsServices from '../../services/ContactsServices';
 
 const Home = () => {
   const [contacts, setContacts] = useState([]);
-  const [currentContact, setCurrentContact] = useState(null);
   const [orderBy, setOrderBy] = useState('asc');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsOpenModal] = useState(false);
+  const [currentContact, setCurrentContact] = useState(null);
+
+  const filteredContacts = useMemo(
+    () =>
+      contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()),
+      ),
+    [contacts, searchTerm],
+  );
 
   useEffect(() => {
-    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
-      .then(async (response) => {
-        const json = await response.json();
-        setContacts(json);
-      })
-      .catch((error) => console.log('erro', error));
+    (async () => {
+      try {
+        setIsLoading(true);
+        const contactsList = await ContactsServices.listContacts(orderBy);
+        setContacts(contactsList);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, [orderBy]);
 
   async function handleModalDelete(id) {
@@ -41,31 +58,43 @@ const Home = () => {
     }
   }
 
-  async function handleToggleOrderBy() {
+  function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
+  }
+
+  function handleSearchTerm(event) {
+    setSearchTerm(event.target.value);
   }
 
   return (
     <Container>
+      <Loader isLoading={isLoading} />
       <InputSearchContainer>
-        <input type="text" placeholder="Pesquisar contato..." />
+        <input
+          value={searchTerm}
+          onChange={handleSearchTerm}
+          type="text"
+          placeholder="Pesquisar contato..."
+        />
       </InputSearchContainer>
 
       <Header>
         <strong>
-          {contacts.length}
-          {contacts.length === 1 ? ' contato' : ' contatos'}
+          {filteredContacts.length}
+          {filteredContacts.length === 1 ? ' contato' : ' contatos'}
         </strong>
         <Link to="/new">Novo contato</Link>
       </Header>
 
-      <ListHeader orderBy={orderBy}>
-        <button type="button" onClick={handleToggleOrderBy}>
-          <span>Nome</span>
-          <img src={arrow} alt="Arrow" />
-        </button>
-      </ListHeader>
-      {contacts.map(({ id, name, category_name, email, phone }) => (
+      {filteredContacts.length > 0 ? (
+        <ListHeader orderBy={orderBy}>
+          <button type="button" onClick={handleToggleOrderBy}>
+            <span>Nome</span>
+            <img src={arrow} alt="Arrow" />
+          </button>
+        </ListHeader>
+      ) : null}
+      {filteredContacts.map(({ id, name, category_name, email, phone }) => (
         <Card key={id}>
           <div className="info">
             <div className="contact-name">
