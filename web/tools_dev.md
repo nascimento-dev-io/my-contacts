@@ -72,3 +72,4 @@ insert_final_newline = true
 - Rotas bem definidas/organizadas.
 - Portals ( entender sua importância ).
 - file: hooks - functions.
+- erros handler - try catch
