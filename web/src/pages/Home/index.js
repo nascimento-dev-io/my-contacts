@@ -38,6 +38,7 @@ const Home = () => {
       try {
         setIsLoading(true);
         const contactsList = await ContactsServices.listContacts(orderBy);
+
         setContacts(contactsList);
       } catch (error) {
         console.log(error);
