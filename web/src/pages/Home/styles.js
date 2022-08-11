@@ -32,8 +32,10 @@ export const Container = styled.div`
 export const Header = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({ error }) => (error ? 'flex-end' : 'space-between')};
   margin-top: 32px;
+  border-bottom: ${({ theme }) => theme.colors.gray[100]};
+  padding-bottom: 16px;
 
   strong {
     color: ${({ theme }) => theme.colors.gray[900]};
@@ -133,6 +135,24 @@ export const Card = styled.div`
       border: none;
 
       margin-left: 8px;
+    }
+  }
+`;
+
+export const ErrorContainer = styled.div`
+  margin-top: 16px;
+
+  display: flex;
+  align-items: center;
+
+  .details {
+    margin-left: 16px;
+
+    strong {
+      display: block;
+      color: ${({ theme }) => theme.colors.danger.main};
+      margin-bottom: 8px;
+      font-size: 22px;
     }
   }
 `;
