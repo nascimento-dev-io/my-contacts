@@ -1,9 +1,12 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable-next-line no-nested-ternary */
+
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ContactsServices from '../../services/ContactsServices';
 
-import Modal from '../../components/Modal';
+// import Modal from '../../components/Modal';
 import Loader from '../../components/Loader';
 
 import {
@@ -13,13 +16,18 @@ import {
   ListHeader,
   Card,
   ErrorContainer,
+  EmptyListContainer,
+  SearchNotFoundContainer,
 } from './styles';
+
+import Button from '../../components/Button';
 
 import arrow from '../../assets/images/icons/arrow.svg';
 import editIcon from '../../assets/images/icons/edit.svg';
 import trashIcon from '../../assets/images/icons/trash.svg';
 import SadIcon from '../../assets/images/icons/sad.svg';
-import Button from '../../components/Button';
+import emptyBox from '../../assets/images/empty-box.svg';
+import magnifierQuestion from '../../assets/images/magnifier-question.svg';
 
 const Home = () => {
   const [contacts, setContacts] = useState([]);
@@ -54,16 +62,16 @@ const Home = () => {
     loadContacts();
   }, [loadContacts]);
 
-  async function handleModalDelete(id) {
-    try {
-      const response = await fetch(`http://localhost:3001/contacts/${id}`);
-      const contact = await response.json();
-      setCurrentContact(contact);
-      setIsOpenModal(true);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function handleModalDelete(id) {
+  //   try {
+  //     const response = await fetch(`http://localhost:3001/contacts/${id}`);
+  //     const contact = await response.json();
+  //     setCurrentContact(contact);
+  //     setIsOpenModal(true);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
@@ -80,17 +88,27 @@ const Home = () => {
   return (
     <Container>
       <Loader isLoading={isLoading} />
-      <InputSearchContainer>
-        <input
-          value={searchTerm}
-          onChange={handleSearchTerm}
-          type="text"
-          placeholder="Pesquisar contato..."
-        />
-      </InputSearchContainer>
+      {contacts.length > 0 && (
+        <InputSearchContainer>
+          <input
+            value={searchTerm}
+            onChange={handleSearchTerm}
+            type="text"
+            placeholder="Pesquisar contato..."
+          />
+        </InputSearchContainer>
+      )}
 
-      <Header error={hasError}>
-        {!hasError && (
+      <Header
+        justifyContent={
+          hasError
+            ? 'flex-end'
+            : contacts.length > 0
+            ? 'space-between'
+            : 'center'
+        }
+      >
+        {!hasError && contacts.length > 0 && (
           <strong>
             {filteredContacts.length}
             {filteredContacts.length === 1 ? ' contato' : ' contatos'}
@@ -114,14 +132,38 @@ const Home = () => {
 
       {!hasError && (
         <>
-          {filteredContacts.length > 0 ? (
+          {contacts.length < 1 && !isLoading && (
+            <EmptyListContainer>
+              <img src={emptyBox} alt="empty box" />
+
+              <p>
+                Você ainda não tem nenhum contato cadastrado! Clique no botão
+                <strong> ”Novo contato” </strong> à cima para cadastrar o seu
+                primeiro!
+              </p>
+            </EmptyListContainer>
+          )}
+
+          {contacts.length > 0 && filteredContacts.length < 1 && (
+            <SearchNotFoundContainer>
+              <img src={magnifierQuestion} alt="magnifier Question" />
+
+              <p>
+                Nenhum resultado foi encontrado para{' '}
+                <strong>{searchTerm}</strong> .
+              </p>
+            </SearchNotFoundContainer>
+          )}
+
+          {filteredContacts.length > 0 && (
             <ListHeader orderBy={orderBy}>
               <button type="button" onClick={handleToggleOrderBy}>
                 <span>Nome</span>
                 <img src={arrow} alt="Arrow" />
               </button>
             </ListHeader>
-          ) : null}
+          )}
+
           {filteredContacts.map(({ id, name, category_name, email, phone }) => (
             <Card key={id}>
               <div className="info">
@@ -137,7 +179,7 @@ const Home = () => {
                   <img src={editIcon} alt="edit contact" />
                 </Link>
 
-                <button onClick={() => handleModalDelete(id)}>
+                <button onClick={() => {}}>
                   <img src={trashIcon} alt="delete contact" />
                 </button>
               </div>

@@ -32,9 +32,9 @@ export const Container = styled.div`
 export const Header = styled.header`
   display: flex;
   align-items: center;
-  justify-content: ${({ error }) => (error ? 'flex-end' : 'space-between')};
+  justify-content: ${({ justifyContent }) => justifyContent};
   margin-top: 32px;
-  border-bottom: ${({ theme }) => theme.colors.gray[100]};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.gray[100]};
   padding-bottom: 16px;
 
   strong {
@@ -154,5 +154,37 @@ export const ErrorContainer = styled.div`
       margin-bottom: 8px;
       font-size: 22px;
     }
+  }
+`;
+
+export const EmptyListContainer = styled.div`
+  margin-top: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    color: ${({ theme }) => theme.colors.gray[200]};
+    text-align: center;
+    margin-top: 8px;
+
+    strong {
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
+  }
+`;
+
+export const SearchNotFoundContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  margin-top: 16px;
+
+  p {
+    color: ${({ theme }) => theme.colors.gray[200]};
+    word-break: break-word;
+    margin-left: 16px;
   }
 `;
