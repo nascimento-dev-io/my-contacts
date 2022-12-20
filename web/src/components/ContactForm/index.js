@@ -21,6 +21,7 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
   const [categoryId, setCategoryId] = useState('');
   const [categories, setCategories] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+  const [isSubmitting, setIsSubmmitting] = useState(false);
 
   const { errors, setError, removeError, getErrorMessageByFieldName } =
     useErrors();
@@ -64,15 +65,26 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
   function handlePhoneChange(event) {
     setPhone(formatPhone(event.target.value));
   }
+  function resetForm() {
+    setName('');
+    setEmail('');
+    setPhone('');
+    setCategories('');
+  }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    onSubmit({
+
+    setIsSubmmitting(true);
+
+    await onSubmit({
       name,
       email,
       phone,
       categoryId,
     });
+    resetForm();
+    setIsSubmmitting(false);
   }
 
   return (
@@ -82,6 +94,7 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
           placeholder="Nome *"
           value={name}
           onChange={handleNameChange}
+          disabled={isSubmitting}
           error={getErrorMessageByFieldName('name')}
         />
       </FormGroup>
@@ -92,6 +105,7 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}
+          disabled={isSubmitting}
           error={getErrorMessageByFieldName('email')}
         />
       </FormGroup>
@@ -102,6 +116,7 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
           maxLength="15"
           value={phone}
           onChange={handlePhoneChange}
+          disabled={isSubmitting}
         />
       </FormGroup>
 
@@ -109,7 +124,7 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
         <Select
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
-          disabled={isLoadingCategories}
+          disabled={isLoadingCategories || isSubmitting}
         >
           <option value="">Sem categoria</option>
           {categories.length > 0 &&
@@ -122,7 +137,7 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
       </FormGroup>
 
       <ButtonContainer>
-        <Button type="submit" disabled={!isFormValid}>
+        <Button type="submit" disabled={!isFormValid} isLoading={isSubmitting}>
           {buttonLabel}
         </Button>
       </ButtonContainer>
