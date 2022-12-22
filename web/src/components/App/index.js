@@ -10,11 +10,13 @@ import defaultTheme from '../../assets/styles/themes/default';
 import Header from '../Header';
 
 import { Container } from './styles';
+import ToastContainer from '../Toast/ToastContainer';
 
 const App = () => (
   <BrowserRouter>
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles />
+      <ToastContainer />
       <Container>
         <Header />
         <Routes />
