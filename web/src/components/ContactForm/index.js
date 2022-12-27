@@ -76,7 +76,6 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
     event.preventDefault();
 
     setIsSubmmitting(true);
-
     await onSubmit({
       name,
       email,

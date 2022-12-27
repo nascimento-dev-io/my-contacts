@@ -1,16 +1,21 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const colorsVariants = {
-  success: '#51CA73',
-  danger: '#FC5050',
-  default: '#5061FC',
+const containerVariants = {
+  success: css`
+    background-color: ${({ theme }) => theme.colors.success.main};
+  `,
+  danger: css`
+    background-color: ${({ theme }) => theme.colors.danger.main};
+  `,
+  default: css`
+    background-color: ${({ theme }) => theme.colors.primary.main};
+  `,
 };
 
 export const Container = styled.div`
   padding: 16px 32px;
-  background-color: ${({ type }) => colorsVariants[type]};
   color: #fff;
-
+  ${({ type }) => containerVariants[type] || containerVariants.default}
   border-radius: 4px;
   box-shadow: 0px 20px 20px -16px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -21,7 +26,7 @@ export const Container = styled.div`
     margin-top: 12px;
   }
 
-  strong {
-    margin-left: 8px;
+  img {
+    margin-right: 8px;
   }
 `;
