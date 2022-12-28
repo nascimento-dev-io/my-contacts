@@ -13,7 +13,7 @@ class ContactController {
     const { id } = request.params;
 
     if (!isValidUUID(id)) {
-      response.status(400).json({ error: 'Invalid User Id' });
+      response.status(400).json({ error: 'Invalid contact id' });
     }
 
     const contact = await ContactRepository.findById(id);
@@ -60,7 +60,7 @@ class ContactController {
     const { name, email, phone, category_id } = request.body;
 
     if (!isValidUUID(id)) {
-      response.status(400).json({ error: 'Invalid User Id' });
+      response.status(400).json({ error: 'Invalid contact id' });
     }
 
     if (category_id && !isValidUUID(category_id)) {
@@ -102,6 +102,10 @@ class ContactController {
     // if (!contact) {
     //   return response.status(404).json({ error: 'Contact not found' });
     // }
+
+    if (!isValidUUID(id)) {
+      response.status(400).json({ error: 'Invalid contact id' });
+    }
 
     await ContactRepository.delete(id);
 
