@@ -13,8 +13,11 @@ const NewContact = () => {
         category_id: formData.categoryId,
       };
       await ContactsServices.createContact(contact);
-
-      toast({ type: 'success', text: 'Cadastro realizado com sucesso' });
+      toast({
+        type: 'success',
+        text: 'Cadastro realizado com sucesso',
+      });
+      // toast({ type: 'success', text: 'Cadastro realizado com sucesso' });
     } catch {
       // const event = new CustomEvent('addtoast', {
       //   detail: {
@@ -22,10 +25,12 @@ const NewContact = () => {
       //     text: 'Ocorreu um erro ao cadastrar o contato',
       //   },
       // });
-
       // document.dispatchEvent(event);
-
-      toast({ type: 'danger', text: 'Ocorreu um erro ao cadastrar o contato' });
+      // toast({ type: 'danger', text: 'Ocorreu um erro ao cadastrar o contato' });
+      toast({
+        type: 'danger',
+        text: 'Ocorreu um erro ao cadastrar o contato',
+      });
     }
   }
   return (

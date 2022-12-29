@@ -1,34 +1,31 @@
 export default class EventManager {
   constructor() {
-    this.listeners = {};
+    this.listeners = new Map();
   }
 
   on(event, listener) {
     if (listener instanceof Function) {
-      if (this.listeners[event]) {
-        this.listeners[event].push(listener);
-      } else {
-        this.listeners = {
-          [event]: [listener],
-        };
+      if (!this.listeners.has(event)) {
+        this.listeners.set(event, []);
       }
+      this.listeners.get(event).push(listener);
     } else {
-      throw new Error('listener should be a function');
+      throw new Error('listener is not a function');
     }
   }
 
   emit(event, payload) {
-    if (!this.listeners[event]) {
+    if (!this.listeners.has(event)) {
       return;
     }
 
-    this.listeners[event].forEach((listener) => {
+    this.listeners.get(event).forEach((listener) => {
       listener(payload);
     });
   }
 
   removeListener(event, listenerToRemove) {
-    const listeners = this.listeners[event];
+    const listeners = this.listeners.get(event);
 
     if (!listeners) {
       return;
@@ -38,13 +35,6 @@ export default class EventManager {
       (listener) => listener !== listenerToRemove,
     );
 
-    this.listeners[event] = filteredListener;
+    this.listeners.set(event, filteredListener);
   }
 }
-
-const toastEvent = new EventManager();
-toastEvent.on('addtoast', (event) => {
-  console.log(event);
-});
-
-toastEvent.emit('addtoast', { type: 'danger', text: 'Toast message' });
