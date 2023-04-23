@@ -65,6 +65,7 @@ const ContactForm = ({ buttonLabel, onSubmit }) => {
   function handlePhoneChange(event) {
     setPhone(formatPhone(event.target.value));
   }
+
   function resetForm() {
     setName('');
     setEmail('');

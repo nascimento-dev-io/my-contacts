@@ -1,6 +1,6 @@
 ## Criando um componente Toast
 
-Toast são Mensagens de feedback que são exibidas em tela em resposta a determinada ação que pode ser do usuário,tais como um cadastro criado, deletado ou mesmo erros na aplicação. Nesse artigo vou mostrar o processo de criação baseado nas aulas do curso curso JStack do Matheus Silva, que usa o mínimo possível de lib externa para um aprendizado melhor do que acontece por 'debaixo dos panos'.
+**Toast** são componentes de feedback que são exibidas em tela em resposta a determinada ação que pode ser do usuário,tais como um cadastro criado, deletado ou mesmo erros na aplicação. Nesse artigo vou mostrar o processo de criação baseado nas aulas do curso curso JStack do Matheus Silva, que usa o mínimo possível de lib externa para um aprendizado melhor do que acontece por 'debaixo dos panos'.
 
 A ideia é criar toast que serão exibidos com estilização de acordo com o tipo de mensagem e contendo ícone de acordo como tipo de mensagem escolhida, em caso de sucesso na cor verde, erros na cor vermelha e na cor azul como o default,abaixo os exemplos de como será o componente.
 
@@ -54,16 +54,16 @@ O segundo componente necessário é o toast message que lida com a lógica da me
 ```jsx
 // src/components/ToastMessage/index.js
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
-import xCircleIcon from "../../../assets/images/icons/x-circle.svg";
-import checkCircleIcon from "../../../assets/images/icons/check-circle.svg";
+import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
+import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
 
 const ToastMessage = ({ text, type }) => {
   return (
     <Container type={type}>
-      {type === "success" && <img src={checkCircleIcon} alt="check" />}
-      {type === "danger" && <img src={xCircleIcon} alt="x" />}
+      {type === 'success' && <img src={checkCircleIcon} alt="check" />}
+      {type === 'danger' && <img src={xCircleIcon} alt="x" />}
       <strong>{text}</strong>
     </Container>
   );
@@ -111,4 +111,60 @@ export const Container = styled.div`
 `;
 ```
 
-Dessa forma temos os componentes necessários para gerar a renderização dos toasts e suas variações foram finalizados, agora vamos para a funcionalidade de exibir o toast de forma dinâmica e com funcionalidades adicionais.
+Dessa forma os componentes necessários para gerar a renderização dos toasts e suas variações foram finalizados, agora vamos para as funcionalidades de exibir o toast de forma dinâmica e com funcionalidades adicionais.
+
+### Event Manager
+
+A escolha nesse caso especificamente foi de criar um gerenciador de eventos genérico para que assim seja registrado um tipo de evento ( aqui 'addtoast' ) e que esse seja 'disparado' sempre que necessário exibir um **toast** em tela, porém é uma possibilidade usar a própria API do DOM [CustomEvent](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent) ou a [Context API](https://dev.to/nascimento_/react-o-que-e-contexto-5f6j) para essa finalidade.
+
+**_Vamos ao código:_**
+
+```js
+// src/lib/EventManager.js
+
+export default class EventManager {
+  constructor() {
+    this.listeners = new Map();
+  }
+
+  on(event, listener) {
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, []);
+    }
+
+    this.listeners.get(event).push(listener);
+  }
+
+  emit(event, payload) {
+    if (!this.listeners.has(event)) {
+      return;
+    }
+
+    this.listeners.get(event).forEach(listener => {
+      listener(payload);
+    });
+  }
+
+  removeListener(event, listenerToRemove) {
+    const listeners = this.listeners.get(event);
+
+    if (!listeners) {
+      return;
+    }
+
+    const filteredListener = listeners.filter(listener => listener !== listenerToRemove);
+
+    this.listeners.set(event, filteredListener);
+  }
+}
+```
+
+De forma resumida o **EventManager** é uma classe que manipula um **Map** onde nesse é adicionado os **events** e **listeners** e também remove um **listerner** específico caso necessário.
+
+> O método **on** define o nome do evento como uma **key** do Map e popular uma array com funções **listeners** passadas como **value** dessa key.
+
+> O método **emit** é utilizado para disparar a função atrelada ao evento definido passando nesse caso um **payload** que aqui iremos usar o tipo de mensagem e a mensagem em si. O **emit** busca chave com o nome do evento passado e executa todos os **listeners** atrelado a essa chave, passando o **payload** como argumento de cada listener.
+
+> O método **removeListener** é utilizado para remover um listener atrelado a um determinado evento, primeiro localizamos a chave pelo evento passado e após isso é realizado um filtro removendo a função informada do array de listeners.
+
+---

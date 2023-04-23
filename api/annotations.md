@@ -8,9 +8,10 @@ Utilizei esse espaço para lembrar e reforçar depois alguns conceitos utilizado
 
 **Middlewares** são funções que estão entre o **request** e o **controller**, e eles servem para realizar manipulação nos objetos ( request/response ) e pode controlar o life cycle interrompendo uma request por exemplo ou respondendo uma request antes de chegar em um controller.
 
-> Middleware tem acesso ao request, response e um terceiro parâmentro que é o next, essa é a função chamada para o fluxo de middleware seguir sendo executado.
+> Middleware tem acesso ao request, response e um terceiro parâmetro que é o next, essa é a função chamada para o fluxo de middleware seguir sendo executado.
 
 ### Estrutura/Padrão
+
 O conceito aqui é separação de responsabilidades, torna o sistema mais desacoplado e com camadas mais definidas, melhorando assim a escalabilidade e manutenções futuras.
 
 - **Controller** : Camada responsável pela lógica.
@@ -39,5 +40,5 @@ Utilizamos o docker para o **postgres**, banco de dados relacional que irá arma
 Conceitos utilizados na criação do banco de dados, no nosso caso utilizamos o **postgres**.
 
 - [**SQL**](w3schools.com/sql/) linguagem padrão para armazenar, manipular e recuperar dados em bancos de dados.
-- [Postgres](https://www.postgresql.org/) banco de dados relacional utiliado na API.
+- [Postgres](https://www.postgresql.org/) banco de dados relacional utilizado na API.
 - [**uuid**](https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal) --> Universal Unique ID ( uma hash utilizado para gerar os id do banco ).
