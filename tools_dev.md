@@ -12,7 +12,7 @@ Algumas ferramentas são muito importantes para manter uma padronização do có
 
 **Webpack** - utilizado para lidar com arquivos ( transpile, processamentos, bundler).
 
-**Babel** - transpiler de códigos js.
+**Babel** - transpiler de códigos js ( lidar com transpile de código novo para antigo, JSX ...).
 
 **Exemplos de arquivos de configurações**
 
@@ -71,5 +71,5 @@ insert_final_newline = true
 - Manter semântica no HTML gerado.
 - Rotas bem definidas/organizadas.
 - Portals ( entender sua importância ).
-- file: hooks - functions.
+- Estrutura de pastas organizadas e padronizadas.
 - error handler - try catch
