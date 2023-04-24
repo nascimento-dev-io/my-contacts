@@ -23,6 +23,8 @@ export const Container = styled.div`
   justify-content: center;
   cursor: pointer;
 
+  cursor: pointer;
+
   & + & {
     margin-top: 12px;
   }
