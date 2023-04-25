@@ -7,7 +7,7 @@ import Loader from '../../components/Loader';
 import toast from '../../utils/toast';
 
 const EditContact = () => {
-  const [contact, setContact] = useState(null);
+  const [contactName, setContactName] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const contactFormRef = useRef(null);
 
@@ -20,7 +20,7 @@ const EditContact = () => {
         const contactData = await ContactsServices.getContactById(id);
         contactFormRef.current.setFieldsValues(contactData);
 
-        setContact(contactData);
+        setContactName(contactData.name);
         setIsLoading(false);
       } catch {
         history.push('/');
@@ -31,12 +31,36 @@ const EditContact = () => {
     loadContact();
   }, [id, history]);
 
-  function handleSubmit() {}
+  async function handleSubmit(formData) {
+    try {
+      const contact = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        category_id: formData.categoryId,
+      };
+
+      const contactUpdated = await ContactsServices.updateContact(id, contact);
+      setContactName(contactUpdated.name);
+
+      toast({
+        type: 'success',
+        text: 'Cadastro editado com sucesso',
+      });
+    } catch {
+      toast({
+        type: 'danger',
+        text: 'Ocorreu um erro ao editar o contato',
+      });
+    }
+  }
 
   return (
     <>
       <Loader isLoading={isLoading} />
-      <PageHeader title={`Editar ${contact?.name || ''}`} />
+      <PageHeader
+        title={isLoading ? 'Carregando...' : `Editar ${contactName}`}
+      />
       <ContactForm
         ref={contactFormRef}
         buttonLabel="Salvar alterações"
