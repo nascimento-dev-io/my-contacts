@@ -18,6 +18,14 @@ class HttpClient {
     });
   }
 
+  put(path, options) {
+    return this.makeRequest(path, {
+      method: 'PUT',
+      body: options?.body,
+      headers: options?.headers,
+    });
+  }
+
   async makeRequest(path, options) {
     await delay();
 
@@ -27,9 +35,6 @@ class HttpClient {
     }
 
     if (options.headers) {
-      // Object.keys(options.headers).forEach((name) => {
-      //   headers.append(name, options.headers[name]);
-      // });
       Object.entries(options.headers).forEach(([name, value]) => {
         headers.append(name, value);
       });

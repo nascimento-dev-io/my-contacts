@@ -15,6 +15,8 @@ export default styled.select`
   appearance: none;
   transition: border-color 0.2s ease-in;
 
+  text-transform: capitalize;
+
   &:focus {
     border: 2px solid ${({ theme }) => theme.colors.primary.main};
   }

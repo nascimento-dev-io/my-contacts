@@ -72,7 +72,6 @@ const Home = () => {
   //     console.log(error);
   //   }
   // }
-
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
   }
