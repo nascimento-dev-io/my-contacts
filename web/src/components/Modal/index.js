@@ -1,55 +1,73 @@
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import { Overlay, Container, Footer } from './styles';
 
 import Button from '../Button';
+import ReactPortal from '../ReactPortal';
 
-const Modal = ({ danger, setIsOpenModal, contact }) => {
-  function handleRemoveContact(id) {
-    try {
-      fetch(`http://localhost:3001/contacts/${id}`, {
-        method: 'Delete',
-      });
-      setIsOpenModal(false);
-    } catch (error) {
-      console.log(error);
-    }
+const Modal = ({
+  danger,
+  visible,
+  isLoading,
+  title,
+  children,
+  cancelLabel,
+  confirmLabel,
+  onCancel,
+  onConfirm,
+}) => {
+  if (!visible) {
+    return null;
   }
-  return ReactDOM.createPortal(
-    <Overlay>
-      <Container danger={danger}>
-        <h1>Tem certeza que deseja remover o contato {contact.name}</h1>
-        <p>Esta ação não pode ser desfeita!</p>
 
-        <Footer>
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={() => setIsOpenModal(false)}
-          >
-            Cancelar
-          </button>
-          <Button
-            type="button"
-            danger={danger}
-            onClick={() => handleRemoveContact(contact.id)}
-          >
-            Deletar
-          </Button>
-        </Footer>
-      </Container>
-    </Overlay>,
-    document.getElementById('modal-root'),
+  return (
+    <ReactPortal containerId={'modal-root'}>
+      <Overlay>
+        <Container danger={danger}>
+          <h1>{title}</h1>
+          <div className="modal-body">{children}</div>
+
+          <Footer>
+            <button
+              type="button"
+              className="cancel-button"
+              onClick={onCancel}
+              disabled={isLoading}
+            >
+              {cancelLabel}
+            </button>
+            <Button
+              type="button"
+              danger={danger}
+              isLoading={isLoading}
+              onClick={onConfirm}
+            >
+              {confirmLabel}
+            </Button>
+          </Footer>
+        </Container>
+      </Overlay>
+    </ReactPortal>
   );
 };
 
 Modal.propTypes = {
   danger: PropTypes.bool,
+  visible: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  cancelLabel: PropTypes.string,
+  confirmLabel: PropTypes.string,
+  onCancel: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
 Modal.defaultProps = {
   danger: false,
+  isLoading: false,
+  cancelLabel: 'Cancelar',
+  confirmLabel: 'Confirmar',
 };
 
 export default Modal;

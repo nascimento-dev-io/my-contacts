@@ -5,8 +5,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ContactsServices from '../../services/ContactsServices';
+import toast from '../../utils/toast';
 
-// import Modal from '../../components/Modal';
+import Modal from '../../components/Modal';
 import Loader from '../../components/Loader';
 
 import {
@@ -35,6 +36,9 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [contactBeingDelete, setContactBeingDelete] = useState(null);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
   const filteredContacts = useMemo(
     () =>
@@ -62,16 +66,6 @@ const Home = () => {
     loadContacts();
   }, [loadContacts]);
 
-  // async function handleModalDelete(id) {
-  //   try {
-  //     const response = await fetch(`http://localhost:3001/contacts/${id}`);
-  //     const contact = await response.json();
-  //     setCurrentContact(contact);
-  //     setIsOpenModal(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
   function handleToggleOrderBy() {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
   }
@@ -84,9 +78,50 @@ const Home = () => {
     loadContacts();
   }
 
+  function handleDeleteContact(contact) {
+    setContactBeingDelete(contact);
+    setIsDeleteModalVisible(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalVisible(false);
+    setContactBeingDelete(null);
+  }
+
+  async function handleConfirmeDeleteContact() {
+    try {
+      setIsLoadingDelete(true);
+
+      await ContactsServices.deleteContact(contactBeingDelete.id);
+
+      setContacts((prevState) =>
+        prevState.filter((contact) => contact.id !== contactBeingDelete.id),
+      );
+
+      handleCloseDeleteModal();
+
+      toast({ type: 'success', text: 'Contato deletado com sucesso' });
+    } catch {
+      toast({ type: 'danger', text: 'Ocorreu um erro ao deletar o contato' });
+    } finally {
+      setIsLoadingDelete(false);
+    }
+  }
+
   return (
     <Container>
       <Loader isLoading={isLoading} />
+      <Modal
+        danger
+        visible={isDeleteModalVisible}
+        isLoading={isLoadingDelete}
+        title={`Tem certeza que deseja remover o contato ${contactBeingDelete?.name}`}
+        confirmLabel="Deletar"
+        onCancel={handleCloseDeleteModal}
+        onConfirm={handleConfirmeDeleteContact}
+      >
+        <p>Esta ação não pode ser desfeita!</p>
+      </Modal>
       {contacts.length > 0 && (
         <InputSearchContainer>
           <input
@@ -163,22 +198,24 @@ const Home = () => {
             </ListHeader>
           )}
 
-          {filteredContacts.map(({ id, name, category_name, email, phone }) => (
-            <Card key={id}>
+          {filteredContacts.map((contact) => (
+            <Card key={contact.id}>
               <div className="info">
                 <div className="contact-name">
-                  <strong>{name}</strong>
-                  {category_name && <small>{category_name}</small>}
+                  <strong>{contact.name}</strong>
+                  {contact.category_name && (
+                    <small>{contact.category_name}</small>
+                  )}
                 </div>
-                <span>{email}</span>
-                <span>{phone}</span>
+                <span>{contact.email}</span>
+                <span>{contact.phone}</span>
               </div>
               <div className="actions">
-                <Link to={`/edit/${id}`}>
+                <Link to={`/edit/${contact.id}`}>
                   <img src={editIcon} alt="edit contact" />
                 </Link>
 
-                <button onClick={() => {}}>
+                <button onClick={() => handleDeleteContact(contact)}>
                   <img src={trashIcon} alt="delete contact" />
                 </button>
               </div>
