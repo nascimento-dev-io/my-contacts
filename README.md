@@ -6,11 +6,11 @@
 </h2>
 
 <p align="center">
-  Aplicação web que gerencia uma lista de contatos, você pode cadastrar, editar e excluir contatos da lista utilizando boas práticas de UI e UX.
+  Aplicação web para gerenciar uma lista de contatos, você pode cadastrar, editar e excluir contatos da lista utilizando boas práticas de UI e UX.
 
 ---
 
-Projeto focado em utilizar o mínimo possível de lib's externas focado em entender os conceitos mais fundamentais do React e do Node ( WebApp criando em react e Api criado com Express).
+Projeto focado em utilizar o mínimo possível de lib's externas focado em entender os conceitos mais fundamentais do React e do Node ( WebApp criando em react e Api criado com Express ).
 
 </p>
 
@@ -49,13 +49,15 @@ $ git clone <https://github.com/nascimento-dev-io/my-contacts>
 $ cd my-contacts
 ```
 
-- Após clonar o projeto é necessário iniciar a **API** e a **WebApp**
+- Após clonar o projeto é necessário iniciar a `API` e a `WebApp`.
 
 ### Api
 
 ```bash
 # Instalação e config do postgres via docker
-$
+$ docker pull postgres
+
+$ docker run --name pg -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
 
 # Acesse a pasta do projeto web no terminal/cmd
 $ cd api

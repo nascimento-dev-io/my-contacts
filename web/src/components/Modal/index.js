@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 
+import { useCallback, useEffect } from 'react';
 import { Overlay, Container, Footer } from './styles';
 
 import Button from '../Button';
@@ -16,6 +17,23 @@ const Modal = ({
   onCancel,
   onConfirm,
 }) => {
+  const handleEscKey = useCallback(
+    (event) => {
+      if (event.key === 'Escape') {
+        onCancel();
+      }
+    },
+    [onCancel],
+  );
+
+  useEffect(() => {
+    document.addEventListener('keyup', handleEscKey, false);
+
+    return () => {
+      document.removeEventListener('keyup', handleEscKey, false);
+    };
+  }, [handleEscKey]);
+
   if (!visible) {
     return null;
   }
