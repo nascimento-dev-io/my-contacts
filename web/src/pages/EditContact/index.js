@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
 import ContactForm from '../../components/ContactForm';
 import ContactsServices from '../../services/ContactsServices';
 import Loader from '../../components/Loader';
 import toast from '../../utils/toast';
+import useSafeAsyncState from '../../hooks/useSafeAsyncState';
 
 const EditContact = () => {
-  const [contactName, setContactName] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [contactName, setContactName] = useSafeAsyncState(null);
+  const [isLoading, setIsLoading] = useSafeAsyncState(true);
   const contactFormRef = useRef(null);
 
   const { id } = useParams();

@@ -72,4 +72,3 @@ insert_final_newline = true
 - Rotas bem definidas/organizadas.
 - Portals ( entender sua importância ).
 - Estrutura de pastas organizadas e padronizadas.
-- error handler - try catch
