@@ -6,11 +6,17 @@ import ContactsServices from '../../services/ContactsServices';
 import Loader from '../../components/Loader';
 import toast from '../../utils/toast';
 import useSafeAsyncState from '../../hooks/useSafeAsyncState';
+import useIsMounted from '../../hooks/useIsMounted';
+import useSafeAsyncAction from '../../hooks/useSafeAsyncAction';
 
 const EditContact = () => {
   const [contactName, setContactName] = useSafeAsyncState(null);
   const [isLoading, setIsLoading] = useSafeAsyncState(true);
   const contactFormRef = useRef(null);
+
+  const safeAsyncAction = useSafeAsyncAction();
+
+  const isMounted = useIsMounted();
 
   const { id } = useParams();
   const history = useHistory();
@@ -19,18 +25,22 @@ const EditContact = () => {
     async function loadContact() {
       try {
         const contactData = await ContactsServices.getContactById(id);
-        contactFormRef.current.setFieldsValues(contactData);
 
-        setContactName(contactData.name);
-        setIsLoading(false);
+        if (isMounted()) {
+          contactFormRef.current.setFieldsValues(contactData);
+          setContactName(contactData.name);
+          setIsLoading(false);
+        }
       } catch {
-        history.push('/');
-        toast({ type: 'danger', text: 'Contato não encontrado' });
+        if (isMounted()) {
+          history.push('/');
+          toast({ type: 'danger', text: 'Contato não encontrado' });
+        }
       }
     }
 
     loadContact();
-  }, [id, history]);
+  }, [id, history, isMounted, setContactName, setIsLoading]);
 
   async function handleSubmit(formData) {
     try {
@@ -42,16 +52,21 @@ const EditContact = () => {
       };
 
       const contactUpdated = await ContactsServices.updateContact(id, contact);
-      setContactName(contactUpdated.name);
 
-      toast({
-        type: 'success',
-        text: 'Cadastro editado com sucesso',
+      safeAsyncAction(() => {
+        setContactName(contactUpdated.name);
+
+        toast({
+          type: 'success',
+          text: 'Cadastro editado com sucesso',
+        });
       });
     } catch {
-      toast({
-        type: 'danger',
-        text: 'Ocorreu um erro ao editar o contato',
+      safeAsyncAction(() => {
+        toast({
+          type: 'danger',
+          text: 'Ocorreu um erro ao editar o contato',
+        });
       });
     }
   }

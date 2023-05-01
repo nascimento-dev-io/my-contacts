@@ -1,24 +1,30 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
+import useIsMounted from './useIsMounted';
 
 // use only react before 18 version to handle warning about state update on an unmounted component
 export default function useSafeAsyncState(initialState) {
   const [state, setState] = useState(initialState);
 
-  const isMounted = useRef(false);
+  const isMounted = useIsMounted();
 
-  useEffect(() => {
-    isMounted.current = true;
+  // const isMounted = useRef(false);
 
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+  // useEffect(() => {
+  //   isMounted.current = true;
 
-  const setSafeAsyncState = useCallback((data) => {
-    if (isMounted.current) {
-      setState(data);
-    }
-  }, []);
+  //   return () => {
+  //     isMounted.current = false;
+  //   };
+  // }, []);
+
+  const setSafeAsyncState = useCallback(
+    (data) => {
+      if (isMounted()) {
+        setState(data);
+      }
+    },
+    [isMounted],
+  );
 
   return [state, setSafeAsyncState];
 }

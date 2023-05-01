@@ -6,15 +6,15 @@
 </h2>
 
 <p align="center">
-  Aplicação web para gerenciar uma lista de contatos, você pode cadastrar, editar e excluir contatos da lista utilizando boas práticas de UI e UX.
+  Aplicação web para gerenciar uma lista de contatos, você pode cadastrar, editar e excluir contatos da lista utilizando boas práticas de UI e UX. Foi desenvolvido um front end que consome uma api desenvolvida em node utilizando postgres como banco de dados.
 
 ---
 
-Projeto focado em utilizar o mínimo possível de lib's externas focado em entender os conceitos mais fundamentais do React e do Node ( WebApp criando em react e Api criado com Express ).
+Projeto utiliza o mínimo possível de lib's externas focado em entender os conceitos mais fundamentais do React e do Node ( WebApp criando em react e Api criado com Express ).
 
 </p>
 
-  <p align ="center"> Aplicação criado no curso JStack do Mateus Silva </p>
+<strong align ="center"> Aplicação criado no curso JStack do [Mateus Silva](https://github.com/maateusilva) </strong>
 
   <p align="center">Live: ...<p>
 
@@ -58,6 +58,15 @@ $ cd my-contacts
 $ docker pull postgres
 
 $ docker run --name pg -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
+
+$ docker start pg
+
+$ docker exec -it pg bash
+
+# criar database e tabelas conforme arquivo scheme.sql ( src/app/database/scheme.sql )
+$ psql -U root
+
+# -> copiar e colar no terminal os comandos do arquivo
 
 # Acesse a pasta do projeto web no terminal/cmd
 $ cd api
