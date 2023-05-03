@@ -12,7 +12,7 @@ export const StyledButton = styled.button`
 
   font-weight: bold;
   font-size: 16px;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.gray[100]};
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s ease-in;

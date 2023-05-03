@@ -8,13 +8,11 @@
 <p align="center">
   Aplicação web para gerenciar uma lista de contatos, você pode cadastrar, editar e excluir contatos da lista utilizando boas práticas de UI e UX. Foi desenvolvido um front end que consome uma api desenvolvida em node utilizando postgres como banco de dados.
 
----
-
 Projeto utiliza o mínimo possível de lib's externas focado em entender os conceitos mais fundamentais do React e do Node ( WebApp criando em react e Api criado com Express ).
 
 </p>
 
-<strong align ="center"> Aplicação criado no curso JStack do [Mateus Silva](https://github.com/maateusilva) </strong>
+<strong > Aplicação criada no curso JStack do [Mateus Silva](https://github.com/maateusilva) </strong>
 
   <p align="center">Live: ...<p>
 
@@ -35,7 +33,8 @@ Projeto utiliza o mínimo possível de lib's externas focado em entender os conc
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [Docker](https://docs.docker.com/engine/install/ubuntu/).
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
 
  <h2 id="rodando">🎲 Rodando o Projeto </h2>
 
@@ -49,7 +48,7 @@ $ git clone <https://github.com/nascimento-dev-io/my-contacts>
 $ cd my-contacts
 ```
 
-- Após clonar o projeto é necessário iniciar a `API` e a `WebApp`.
+Após clonar o projeto é necessário iniciar a `API` e a `WebApp` e instalar suas dependências.
 
 ### Api
 

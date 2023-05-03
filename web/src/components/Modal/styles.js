@@ -19,7 +19,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 450px;
 
-  background: #fff;
+  background: ${({ theme }) => theme.colors.gray[100]};
   border-radius: 4px;
 
   padding: 24px;
