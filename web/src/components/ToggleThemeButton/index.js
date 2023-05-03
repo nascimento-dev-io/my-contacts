@@ -1,17 +1,15 @@
 import PropTypes from 'prop-types';
 
-import darkThemeLogo from '../../assets/images/dark-theme-icon.svg';
-import lightThemeLogo from '../../assets/images/light-theme-icon.svg';
-import { Container } from './styles';
+import dayAndNightLogo from '../../assets/images/day-and-night.png';
+
+import { Container, WrapperIcons } from './styles';
 
 function ToggleThemeButton({ theme, onToggleTheme }) {
   return (
     <Container onClick={onToggleTheme}>
-      {theme === 'dark' ? (
-        <img src={darkThemeLogo} alt="dark theme icon" />
-      ) : (
-        <img src={lightThemeLogo} alt="light theme icon" />
-      )}
+      <WrapperIcons themeSelected={theme}>
+        <img src={dayAndNightLogo} alt="light and dark icon" />
+      </WrapperIcons>
     </Container>
   );
 }

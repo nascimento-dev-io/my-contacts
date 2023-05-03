@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+/* eslint-disable no-unused-expressions */
+import styled, { css } from 'styled-components';
 
 export const Container = styled.button`
   width: 40px;
@@ -6,7 +7,6 @@ export const Container = styled.button`
 
   display: flex;
   justify-content: center;
-  align-items: center;
 
   position: absolute;
   right: 24px;
@@ -16,19 +16,34 @@ export const Container = styled.button`
   outline: none;
 
   overflow: hidden;
+`;
 
-  transition: all 300ms ease;
+export const WrapperIcons = styled.div`
+  width: inherit;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: ${({ theme }) => theme.colors.background};
+
+  transition: transform 500ms ease;
+
+  ${({ themeSelected }) =>
+    themeSelected === 'dark'
+      ? css`
+          transform: rotate(180deg);
+        `
+      : css`
+          transform: rotate(0deg);
+        `}
 
   img {
     display: block;
     width: 40px;
     height: 40px;
 
-    object-fit: cover;
-    transition: all 300ms ease;
-
-    &:hover {
-      transform: scale(1.2);
-    }
+    transition: transform 300ms ease-in;
+    transform: scale(1.1);
   }
 `;
