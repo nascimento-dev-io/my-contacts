@@ -7,8 +7,9 @@ import useIsMounted from '../../hooks/useIsMounted';
 import useSafeAsyncAction from '../../hooks/useSafeAsyncAction';
 import Presentation from './Presentation';
 
-const Container = () => {
-  const [contactName, setContactName] = useSafeAsyncState(null);
+// pattern utilizando a fim de aprendizado do conceito
+function Container() {
+  const [contactName, setContactName] = useSafeAsyncState('');
   const [isLoading, setIsLoading] = useSafeAsyncState(true);
   const contactFormRef = useRef(null);
 
@@ -70,6 +71,6 @@ const Container = () => {
       contactFormRef={contactFormRef}
     />
   );
-};
+}
 
 export default Container;
