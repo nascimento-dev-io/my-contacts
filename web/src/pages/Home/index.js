@@ -29,6 +29,7 @@ import trashIcon from '../../assets/images/icons/trash.svg';
 import SadIcon from '../../assets/images/icons/sad.svg';
 import emptyBox from '../../assets/images/empty-box.svg';
 import magnifierQuestion from '../../assets/images/magnifier-question.svg';
+import Input from '../../components/Input';
 
 const Home = () => {
   const [contacts, setContacts] = useState([]);
@@ -124,7 +125,7 @@ const Home = () => {
       </Modal>
       {contacts.length > 0 && (
         <InputSearchContainer>
-          <input
+          <Input
             value={searchTerm}
             onChange={handleSearchTerm}
             type="text"
@@ -203,8 +204,8 @@ const Home = () => {
               <div className="info">
                 <div className="contact-name">
                   <strong>{contact.name}</strong>
-                  {contact.category_name && (
-                    <small>{contact.category_name}</small>
+                  {contact.category.name && (
+                    <small>{contact.category.name}</small>
                   )}
                 </div>
                 <span>{contact.email}</span>

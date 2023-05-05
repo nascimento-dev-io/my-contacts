@@ -9,8 +9,6 @@ export const InputSearchContainer = styled.form`
     height: 50px;
 
     background-color: #fff;
-    border: none;
-    border-radius: 12px;
 
     padding: 0 16px;
 

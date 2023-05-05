@@ -10,7 +10,6 @@ export default createGlobalStyle`
   }
 
   body {
-    height: calc(100vh -78px);
     width: 100vw;
     background: ${({ theme }) => theme.colors.background};
     font-size: 16px;

@@ -4,7 +4,7 @@ export default styled.input`
   width: 100%;
   height: 52px;
   background: #fff;
-  border-radius: 4px;
+  border-radius: 8px;
   outline: none;
 
   border: 2px solid transparent;
