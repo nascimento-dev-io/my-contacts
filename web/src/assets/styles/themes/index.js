@@ -10,7 +10,7 @@ const light = {
     gray: {
       900: '#222222',
       200: '#BCBCBC',
-      100: '#E5E5E5',
+      100: '#FFFFFF',
     },
     danger: {
       light: '#F97171',
