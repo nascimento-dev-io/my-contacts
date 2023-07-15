@@ -1,6 +1,11 @@
 /* eslint-disable operator-linebreak */
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  margin-top: 32px;
+  position: relative;
+`;
+
 export const InputSearchContainer = styled.form`
   width: 100%;
 
@@ -20,11 +25,6 @@ export const InputSearchContainer = styled.form`
       color: #bcbcbc;
     }
   }
-`;
-
-export const Container = styled.div`
-  margin-top: 32px;
-  position: relative;
 `;
 
 export const Header = styled.header`

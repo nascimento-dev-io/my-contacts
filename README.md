@@ -62,10 +62,10 @@ $ docker start pg
 
 $ docker exec -it pg bash
 
-# criar database e tabelas conforme arquivo scheme.sql ( src/app/database/scheme.sql )
+# criar database e tabelas conforme arquivo scheme.sql
 $ psql -U root
 
-# -> copiar e colar no terminal os comandos do arquivo
+# -> copiar e colar no terminal os comandos do arquivo -> ( src/app/database/scheme.sql )
 
 # Acesse a pasta do projeto web no terminal/cmd
 $ cd api

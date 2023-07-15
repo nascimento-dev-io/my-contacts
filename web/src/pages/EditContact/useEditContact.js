@@ -1,14 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import ContactsServices from '../../services/ContactsServices';
-import toast from '../../utils/toast';
-import useSafeAsyncState from '../../hooks/useSafeAsyncState';
 import useIsMounted from '../../hooks/useIsMounted';
 import useSafeAsyncAction from '../../hooks/useSafeAsyncAction';
-import Presentation from './Presentation';
+import useSafeAsyncState from '../../hooks/useSafeAsyncState';
+import ContactsServices from '../../services/ContactsServices';
+import toast from '../../utils/toast';
 
 // pattern utilizando a fim de aprendizado do conceito
-function Container() {
+function useEditContact() {
   const [contactName, setContactName] = useSafeAsyncState('');
   const [isLoading, setIsLoading] = useSafeAsyncState(true);
   const contactFormRef = useRef(null);
@@ -63,14 +62,12 @@ function Container() {
     }
   }
 
-  return (
-    <Presentation
-      isLoading={isLoading}
-      contactName={contactName}
-      onSubmit={handleSubmit}
-      contactFormRef={contactFormRef}
-    />
-  );
+  return {
+    isLoading,
+    contactName,
+    handleSubmit,
+    contactFormRef,
+  };
 }
 
-export default Container;
+export default useEditContact;
