@@ -2,30 +2,29 @@
 /* eslint-disable-next-line no-nested-ternary */
 import { Link } from 'react-router-dom';
 
-import Modal from '../../components/Modal';
 import Loader from '../../components/Loader';
+import Modal from '../../components/Modal';
 
 import {
+  Card,
   Container,
-  InputSearchContainer,
+  EmptyListContainer,
+  ErrorContainer,
   Header,
   ListHeader,
-  Card,
-  ErrorContainer,
-  EmptyListContainer,
   SearchNotFoundContainer,
 } from './styles';
 
 import Button from '../../components/Button';
 
+import emptyBox from '../../assets/images/empty-box.svg';
 import arrow from '../../assets/images/icons/arrow.svg';
 import editIcon from '../../assets/images/icons/edit.svg';
-import trashIcon from '../../assets/images/icons/trash.svg';
 import SadIcon from '../../assets/images/icons/sad.svg';
-import emptyBox from '../../assets/images/empty-box.svg';
+import trashIcon from '../../assets/images/icons/trash.svg';
 import magnifierQuestion from '../../assets/images/magnifier-question.svg';
-import Input from '../../components/Input';
 
+import InputSearch from './components/InputSearch';
 import useHome from './useHome';
 
 function Home() {
@@ -50,26 +49,9 @@ function Home() {
   return (
     <Container>
       <Loader isLoading={isLoading} />
-      <Modal
-        danger
-        visible={isDeleteModalVisible}
-        isLoading={isLoadingDelete}
-        title={`Tem certeza que deseja remover o contato ${contactBeingDelete?.name}`}
-        confirmLabel="Deletar"
-        onCancel={handleCloseDeleteModal}
-        onConfirm={handleConfirmeDeleteContact}
-      >
-        <p>Esta ação não pode ser desfeita!</p>
-      </Modal>
+
       {contacts.length > 0 && (
-        <InputSearchContainer>
-          <Input
-            value={searchTerm}
-            onChange={handleSearchTerm}
-            type="text"
-            placeholder="Pesquisar contato..."
-          />
-        </InputSearchContainer>
+        <InputSearch onChange={handleSearchTerm} value={searchTerm} />
       )}
 
       <Header
@@ -160,6 +142,18 @@ function Home() {
               </div>
             </Card>
           ))}
+
+          <Modal
+            danger
+            visible={isDeleteModalVisible}
+            isLoading={isLoadingDelete}
+            title={`Tem certeza que deseja remover o contato ${contactBeingDelete?.name}`}
+            confirmLabel="Deletar"
+            onCancel={handleCloseDeleteModal}
+            onConfirm={handleConfirmeDeleteContact}
+          >
+            <p>Esta ação não pode ser desfeita!</p>
+          </Modal>
         </>
       )}
     </Container>
