@@ -5,11 +5,10 @@ import { ThemeProvider } from 'styled-components';
 import Routes from '../../Routes';
 
 import Header from '../Header';
-import ToggleThemeButton from '../ToggleThemeButton';
 import ToastContainer from '../Toast/ToastContainer';
 
-import { Container } from './styles';
 import GlobalStyles from '../../assets/styles/global';
+import { Container } from './styles';
 
 import useTheme from '../../hooks/useTheme';
 
@@ -22,8 +21,7 @@ function App() {
         <GlobalStyles />
         <ToastContainer />
         <Container>
-          <ToggleThemeButton theme={theme} onToggleTheme={handleToggleTheme} />
-          <Header theme={theme} />
+          <Header theme={theme} onHandleToggleTheme={handleToggleTheme} />
           <Routes />
         </Container>
       </ThemeProvider>
