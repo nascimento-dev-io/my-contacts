@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Input from '../../../../components/Input';
 import { Container } from './styles';
 
-export default function InputSearch({ value, onChange }) {
+function InputSearch({ value, onChange }) {
   return (
     <Container>
       <Input
@@ -19,3 +19,5 @@ InputSearch.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
+
+export default InputSearch;

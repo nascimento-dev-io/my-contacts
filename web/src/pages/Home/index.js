@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom';
 import Loader from '../../components/Loader';
 import Modal from '../../components/Modal';
 
+import Header from './components/Header';
+
 import {
   Card,
   Container,
   EmptyListContainer,
   ErrorContainer,
-  Header,
   ListHeader,
   SearchNotFoundContainer,
 } from './styles';
@@ -55,23 +56,10 @@ function Home() {
       )}
 
       <Header
-        justifyContent={
-          hasError
-            ? 'flex-end'
-            : contacts.length > 0
-            ? 'space-between'
-            : 'center'
-        }
-      >
-        {!hasError && contacts.length > 0 && (
-          <strong>
-            {filteredContacts.length}
-            {filteredContacts.length === 1 ? ' contato' : ' contatos'}
-          </strong>
-        )}
-
-        <Link to="/new">Novo contato</Link>
-      </Header>
+        hasError={hasError}
+        qtyOfContacts={contacts.length}
+        qtyOfFilteredContacts={filteredContacts.length}
+      />
 
       {hasError && (
         <ErrorContainer>
