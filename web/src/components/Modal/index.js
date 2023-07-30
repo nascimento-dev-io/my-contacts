@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 
 import { useCallback, useEffect } from 'react';
-import { Overlay, Container, Footer } from './styles';
+import { Container, Footer, Overlay } from './styles';
 
+import useAnimatedUnmount from '../../hooks/useAnimatedUnmount';
 import Button from '../Button';
 import ReactPortal from '../ReactPortal';
 
@@ -17,6 +18,9 @@ const Modal = ({
   onCancel,
   onConfirm,
 }) => {
+  const { shouldRender, animatedElementRef: overlayRef } =
+    useAnimatedUnmount(visible);
+
   const handleEscKey = useCallback(
     (event) => {
       if (event.key === 'Escape') {
@@ -34,14 +38,14 @@ const Modal = ({
     };
   }, [handleEscKey]);
 
-  if (!visible) {
+  if (!shouldRender) {
     return null;
   }
 
   return (
     <ReactPortal containerId={'modal-root'}>
-      <Overlay>
-        <Container danger={danger}>
+      <Overlay isLeaving={!visible} ref={overlayRef}>
+        <Container isLeaving={!visible} danger={danger}>
           <h1>{title}</h1>
           <div className="modal-body">{children}</div>
 

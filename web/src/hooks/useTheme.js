@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import themes from '../assets/styles/themes';
 
 export default function useTheme() {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
   const [current, setCurrent] = useState(themes[theme]);
 
   const handleToggleTheme = useCallback(() => {

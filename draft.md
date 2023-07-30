@@ -44,8 +44,8 @@ Algumas ferramentas são muito importantes para manter uma padronização do có
 // Prettier
 module.exports = {
   singleQuote: true,
-  trailingComma: 'all',
-  allowParens: 'avoid',
+  trailingComma: "all",
+  allowParens: "avoid",
 };
 ```
 
@@ -90,4 +90,4 @@ Esse Pattern é utilizado para organizar os componentes separando a camada de l�
 
 Na implementação o `Container` é responsável pela lógica, enquanto o `Presentational` pela UI ( JSX no caso do React).
 
-> Atualmente utilizamos mais os hooks ( em react ) para resolver esse problema
+> Atualmente utilizamos mais os hooks ( em react ) para resolver esse problema.

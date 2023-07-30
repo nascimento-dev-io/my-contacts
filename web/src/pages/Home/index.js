@@ -65,7 +65,7 @@ function Home() {
             danger
             visible={isDeleteModalVisible}
             isLoading={isLoadingDelete}
-            title={`Tem certeza que deseja remover o contato ${contactBeingDelete?.name}`}
+            title={`Tem certeza que deseja remover o contato "${contactBeingDelete?.name}"`}
             confirmLabel="Deletar"
             onCancel={handleCloseDeleteModal}
             onConfirm={handleConfirmeDeleteContact}
