@@ -1,8 +1,6 @@
-## Criando um componente Toast
+**Toast** são componentes de feedback visual que são exibidas em tela em resposta a determinada ação que pode ser do usuário,tais como um cadastro criado, deletado ou mesmo erros na aplicação. Nesse artigo vou mostrar o processo de criação baseado nas aulas do curso curso JStack do Matheus Silva, que usa o mínimo possível de lib externa para um aprendizado melhor do que acontece por 'debaixo dos panos'.
 
-**Toast** são componentes de feedback que são exibidas em tela em resposta a determinada ação que pode ser do usuário,tais como um cadastro criado, deletado ou mesmo erros na aplicação. Nesse artigo vou mostrar o processo de criação baseado nas aulas do curso curso JStack do Matheus Silva, que usa o mínimo possível de lib externa para um aprendizado melhor do que acontece por 'debaixo dos panos'.
-
-A ideia é criar toast que serão exibidos com estilização de acordo com o tipo de mensagem e contendo ícone de acordo como tipo de mensagem escolhida, em caso de sucesso na cor verde, erros na cor vermelha e na cor azul como o default,abaixo os exemplos de como será o componente.
+A ideia é criar toast que serão exibidos com estilização de acordo com o tipo de mensagem e contendo ícone de acordo com o tipo de mensagem escolhida, em caso de sucesso na cor verde, erros na cor vermelha e na cor azul como o default,abaixo os exemplos de como será o componente.
 
 ![image](https://firebasestorage.googleapis.com/v0/b/web-apps-4659f.appspot.com/o/toast.png?alt=media&token=927bc9c1-87b7-44b3-82bd-08a4390ec8b3)
 
@@ -140,7 +138,7 @@ export default class EventManager {
       return;
     }
 
-    this.listeners.get(event).forEach(listener => {
+    this.listeners.get(event).forEach((listener) => {
       listener(payload);
     });
   }
@@ -152,7 +150,9 @@ export default class EventManager {
       return;
     }
 
-    const filteredListener = listeners.filter(listener => listener !== listenerToRemove);
+    const filteredListener = listeners.filter(
+      (listener) => listener !== listenerToRemove,
+    );
 
     this.listeners.set(event, filteredListener);
   }
@@ -161,10 +161,18 @@ export default class EventManager {
 
 De forma resumida o **EventManager** é uma classe que manipula um **Map** onde nesse é adicionado os **events** e **listeners** e também remove um **listerner** específico caso necessário.
 
-> O método **on** define o nome do evento como uma **key** do Map e popular uma array com funções **listeners** passadas como **value** dessa key.
+- O método **on** define o nome do evento como uma **key** do Map e popula um array com funções **listeners** passadas como **value** dessa key.
 
-> O método **emit** é utilizado para disparar a função atrelada ao evento definido passando nesse caso um **payload** que aqui iremos usar o tipo de mensagem e a mensagem em si. O **emit** busca chave com o nome do evento passado e executa todos os **listeners** atrelado a essa chave, passando o **payload** como argumento de cada listener.
+- O método **emit** é utilizado para disparar a função atrelada ao evento definido passando nesse caso um **payload** que aqui iremos usar o tipo de mensagem e a mensagem em si. O **emit** busca chave com o nome do evento passado e executa todos os **listeners** atrelado a essa chave, passando o **payload** como argumento de cada **listener**.
 
-> O método **removeListener** é utilizado para remover um listener atrelado a um determinado evento, primeiro localizamos a chave pelo evento passado e após isso é realizado um filtro removendo a função informada do array de listeners.
+- O método **removeListener** é utilizado para remover um **listener** atrelado a um determinado evento, primeiro localizamos a chave pelo evento passado e após isso é realizado um filtro removendo a função informada do array de **listeners**.
 
 ---
+
+> <sub> _Este post tem como objetivo ajudar quem esta começando no aprendizado das tecnologias web, além de servir como incentivo no meus estudos e a criar outros posts pra fixação do aprendizado._ </sub>
+
+<p align="center"> Me paga um café ? :) | pix: <em>nascimento.dev.io@gmail.com</em> </p>
+
+<h4> <em> Me Sigam :) </em> </h4>
+
+[Linkedin](https://www.linkedin.com/in/nascimento-dev-io/) | [Github](https://github.com/nascimento-dev-io)

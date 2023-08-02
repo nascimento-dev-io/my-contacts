@@ -1,14 +1,14 @@
 ## Ferramentas para desenvolvimento React/Node
 
-Algumas ferramentas são muito importantes para manter uma padronização do código, podendo também melhorar a produtividade nesse processo, vamos ver ferramentas que é geralmente utilizada em meus projetos.
+Algumas ferramentas são muito importantes para manter uma padronização do código e processos de build, podendo também melhorar a produtividade nesse processo, vamos ver ferramentas que é geralmente utilizada em meus projetos.
 
 **Eslint** - define regras e padrões no código, evitando erros e corrigindo em alguns casos.
 
-**Prettier** - fomatador de código que pode ser usando em conjunto com o eslint.
+**Prettier** - formatador de código que pode ser usando em conjunto com o eslint.
 
 **EditorConfig** - define algumas configurações referente aos arquivos, como indent, charset...
 
-**Alguns que são utilizado internamente pelos geradores de templates**
+**Alguns que são utilizado internamente pelos geradores de templates como CRA**
 
 **Webpack** - utilizado para lidar com build, através de loaders tratar variados tipos de arquivos.
 
@@ -16,8 +16,9 @@ Algumas ferramentas são muito importantes para manter uma padronização do có
 
 **Exemplos de arquivos de configurações**
 
+- Eslint
+
 ```json
-// Eslint
 {
   "env": {
     "browser": true,
@@ -40,14 +41,17 @@ Algumas ferramentas são muito importantes para manter uma padronização do có
 };
 ```
 
+- Prettier
+
 ```js
-// Prettier
 module.exports = {
   singleQuote: true,
-  trailingComma: "all",
-  allowParens: "avoid",
+  trailingComma: 'all',
+  allowParens: 'avoid',
 };
 ```
+
+- EditorConfig
 
 ```
 # EditorConfig
@@ -62,15 +66,15 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 ```
 
-### Pontos importantes no processo de desenvolvimento em React
+### Pontos importantes/boas praticas no processo de desenvolvimento em React
 
 - Definição de CSS globais.
 - Ser fiel ao layout / responsividade / manutenabilidade.
 - Definição estruturada no CSS ( spacing, colors ) - UI
-- Definir bem os componentes para reutilização ( flexível de acordo com o projeto)
+- Definir bem os componentes para reutilização ( flexível de acordo com o projeto).
 - Manter semântica no HTML gerado.
 - Rotas bem definidas/organizadas.
-- Portals ( entender sua importância ).
+- Portals, entender sua importância e quando usar.
 - Estrutura de pastas organizadas e padronizadas.
 
 ### Mapper Pattern
@@ -90,4 +94,4 @@ Esse Pattern é utilizado para organizar os componentes separando a camada de l�
 
 Na implementação o `Container` é responsável pela lógica, enquanto o `Presentational` pela UI ( JSX no caso do React).
 
-> Atualmente utilizamos mais os hooks ( em react ) para resolver esse problema.
+> Atualmente utilizamos os hooks em React para resolver esse problema.
