@@ -1,35 +1,25 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Container } from './styles';
 
 import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
 import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
 
-const ToastMessage = ({
-  message,
-  onRemoveMessage,
-  isLeaving,
-  onAnimationEnd,
-}) => {
-  const refElementAnimated = useRef();
+const ToastMessage = ({ message, onRemoveMessage, isLeaving, animatedRef }) => {
+  // useEffect(() => {
+  //   function handleAnimationEnd() {
+  //     onAnimationEnd(message.id);
+  //   }
 
-  useEffect(() => {
-    function handleAnimationEnd() {
-      onAnimationEnd(message.id);
-    }
+  //   const refElement = refElementAnimated.current;
+  //   if (isLeaving) {
+  //     refElement.addEventListener('animationend', handleAnimationEnd);
+  //   }
 
-    const refElement = refElementAnimated.current;
-    if (isLeaving) {
-      refElement.addEventListener('animationend', handleAnimationEnd);
-    }
-
-    return () => {
-      refElement.removeEventListener('animationend', handleAnimationEnd);
-    };
-  }, [isLeaving, onAnimationEnd, message.id]);
-  function handleRemoveToast() {
-    onRemoveMessage(message.id);
-  }
+  //   return () => {
+  //     refElement.removeEventListener('animationend', handleAnimationEnd);
+  //   };
+  // }, [isLeaving, onAnimationEnd, message.id]);
 
   useEffect(() => {
     const timeoutID = setTimeout(
@@ -40,9 +30,13 @@ const ToastMessage = ({
     return () => clearTimeout(timeoutID);
   }, [onRemoveMessage, message]);
 
+  function handleRemoveToast() {
+    onRemoveMessage(message.id);
+  }
+
   return (
     <Container
-      ref={refElementAnimated}
+      ref={animatedRef}
       type={message.type}
       onClick={handleRemoveToast}
       tabIndex={0}
@@ -65,7 +59,7 @@ ToastMessage.propTypes = {
   }).isRequired,
   onRemoveMessage: PropTypes.func.isRequired,
   isLeaving: PropTypes.bool.isRequired,
-  onAnimationEnd: PropTypes.func.isRequired,
+  animatedRef: PropTypes.shape().isRequired,
 };
 
 export default ToastMessage;

@@ -94,4 +94,4 @@ Esse Pattern é utilizado para organizar os componentes separando a camada de l�
 
 Na implementação o `Container` é responsável pela lógica, enquanto o `Presentational` pela UI ( JSX no caso do React).
 
-> Atualmente utilizamos os hooks em React para resolver esse problema.
+> Atualmente utilizamos os hooks em React para resolver esse problema sem a necessidade de criar um novo componente.
