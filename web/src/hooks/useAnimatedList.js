@@ -1,22 +1,55 @@
-import { createRef, useCallback, useRef, useState } from 'react';
+import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 
 function useAnimatedList(initialValue = []) {
   const [items, setItems] = useState(initialValue);
   const [pendingRemoveItemsIds, setPendingRemoveItemsIds] = useState([]);
 
   const animatedRefs = useRef(new Map());
+  const animationEndListeners = useRef(new Map());
 
   function handleRemoveItem(id) {
     setPendingRemoveItemsIds((prevState) => [...prevState, id]);
   }
 
-  // const handleAnimationEnd = useCallback((id) => {
-  //   setItems((prevState) => prevState.filter((item) => item.id !== id));
+  const handleAnimationEnd = useCallback((itemId) => {
+    const removeListener = animationEndListeners.current.get(itemId);
+    removeListener();
 
-  //   setPendingRemoveItemsIds((prevState) =>
-  //     prevState.filter((itemId) => itemId !== id),
-  //   );
-  // }, []);
+    animationEndListeners.current.delete(itemId);
+    animatedRefs.current.delete(itemId);
+
+    setItems((prevState) => prevState.filter((item) => item.id !== itemId));
+    setPendingRemoveItemsIds((prevState) =>
+      prevState.filter((id) => itemId !== id),
+    );
+  }, []);
+
+  useEffect(() => {
+    pendingRemoveItemsIds.forEach((itemId) => {
+      const animatedRef = animatedRefs.current.get(itemId);
+      const animatedElement = animatedRef?.current;
+      const alreadyHasListener = animationEndListeners.current.has(itemId);
+
+      if (animatedElement && !alreadyHasListener) {
+        const onAnimationEnd = () => handleAnimationEnd(itemId);
+        const removeListener = () => {
+          animatedElement.removeEventListener('animationend', onAnimationEnd);
+        };
+
+        animatedElement.addEventListener('animationend', onAnimationEnd);
+        animationEndListeners.current.set(itemId, removeListener);
+      }
+    });
+  }, [pendingRemoveItemsIds, handleAnimationEnd]);
+
+  // Novo useEffect necessário devido a função de cleanup ser chamada também em toda alteração no array de dependências alem do unmount
+  useEffect(() => {
+    const removeListeners = animationEndListeners.current;
+
+    return () => {
+      removeListeners.forEach((removeListener) => removeListener());
+    };
+  }, []);
 
   function getAnimatedRef(itemId) {
     let animatedRef = animatedRefs.current.get(itemId);
@@ -38,7 +71,7 @@ function useAnimatedList(initialValue = []) {
     (renderItem) =>
       items.map((item) => {
         const isLeaving = pendingRemoveItemsIds.includes(item.id);
-        const animatedRef = getAnimatedRef(item);
+        const animatedRef = getAnimatedRef(item.id);
 
         return renderItem(item, {
           isLeaving,
