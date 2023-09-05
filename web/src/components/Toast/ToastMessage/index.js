@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { Container } from './styles';
 
 import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
@@ -62,4 +62,4 @@ ToastMessage.propTypes = {
   animatedRef: PropTypes.shape().isRequired,
 };
 
-export default ToastMessage;
+export default memo(ToastMessage);
