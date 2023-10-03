@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components';
-import Routes from '../../Routes';
+import Router from '../../Router';
 
 import Header from '../Header';
 import ToastContainer from '../Toast/ToastContainer';
@@ -22,7 +22,7 @@ function App() {
         <ToastContainer />
         <Container>
           <Header theme={theme} onHandleToggleTheme={handleToggleTheme} />
-          <Routes />
+          <Router />
         </Container>
       </ThemeProvider>
     </BrowserRouter>
