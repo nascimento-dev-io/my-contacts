@@ -24,7 +24,7 @@ const ToastMessage = ({ message, onRemoveMessage, isLeaving, animatedRef }) => {
   useEffect(() => {
     const timeoutID = setTimeout(
       () => onRemoveMessage(message.id),
-      message.duration || 7000,
+      message.duration || 5000,
     );
 
     return () => clearTimeout(timeoutID);

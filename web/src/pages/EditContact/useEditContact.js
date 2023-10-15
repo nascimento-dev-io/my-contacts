@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useIsMounted from '../../hooks/useIsMounted';
 import useSafeAsyncAction from '../../hooks/useSafeAsyncAction';
 import useSafeAsyncState from '../../hooks/useSafeAsyncState';
@@ -17,7 +17,7 @@ function useEditContact() {
   const isMounted = useIsMounted();
 
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadContact() {
@@ -31,14 +31,14 @@ function useEditContact() {
         }
       } catch {
         if (isMounted()) {
-          history.push('/');
+          navigate('/');
           toast({ type: 'danger', text: 'Contato não encontrado' });
         }
       }
     }
 
     loadContact();
-  }, [id, history, isMounted, setContactName, setIsLoading]);
+  }, [id, navigate, isMounted, setContactName, setIsLoading]);
 
   async function handleSubmit(contact) {
     try {
